@@ -15,7 +15,35 @@ class ModalSelector extends React.Component {
   }
 
   render() {
-    const { isVisible, title, labels, values, headerColor } = this.props;
+    const { isVisible, title, labels, values, headerColor,backgroundColor,textColor,headerTextColor } = this.props;
+    const styles =  StyleSheet.create({
+      modalStyle: {
+        backgroundColor: backgroundColor,
+        margin: 40,
+        alignItems: undefined,
+        justifyContent: undefined,
+      },
+      titleStyle: {
+        padding: 15,
+      },
+      titleTextStyle : {
+        color: headerTextColor,
+        backgroundColor : 'transparent',
+        fontFamily: 'System',
+        fontSize: 20,
+        fontWeight: '600',
+        letterSpacing: 0.361328,
+        lineHeight:28,
+      },
+      labelContainerStyle: {
+        borderBottomColor: '#ececec',
+        borderBottomWidth: 1,
+      },
+      labelTextStyle: {
+        padding: 16,
+        color: textColor,
+      }
+    });
 
     return (
       <Modal isVisible={isVisible} style={ styles.modalStyle }>
@@ -28,12 +56,20 @@ class ModalSelector extends React.Component {
             <View style={{ flex: 1 }}>
               {
                 labels.map((label, i) => {
+                    var selected ="";
+
+                    if(i==2)
+                    {
+                    selected="Selected ";
+                    }
                   return (
-                    <TouchableOpacity key={i} onPress={() => this.select(i)}>
-                      <View style={ styles.labelContainerStyle }>
-                        <Text style={ styles.labelTextStyle }>{ label }</Text>
-                      </View>
-                    </TouchableOpacity>
+                    <View key={i} style={ styles.labelContainerStyle }>
+                      <TouchableOpacity  onPress={() => this.select(i)} >
+                        <Text style={ styles.labelTextStyle }>
+                        <Text >{ label } </Text>
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   );
                 })
               }
@@ -51,6 +87,11 @@ ModalSelector.defaultProps = {
   labels: null,
   values: null,
   headerColor: '#CD2C2E',
+  backgroundColor:'white',
+  textColor:'black',
+  headerTextColor:'white'
+  // backgroundColor:'black',
+  // textColor:'white'
 };
 
 ModalSelector.propTypes = {
@@ -60,34 +101,11 @@ ModalSelector.propTypes = {
   values: PropTypes.array,
   onSelect: PropTypes.func,
   headerColor: PropTypes.string,
+  backgroundColor:PropTypes.string,
+  textColor:PropTypes.string,
+  headerTextColor:PropTypes.string,
 };
 
-const styles =  StyleSheet.create({
-  modalStyle: {
-    backgroundColor: 'white',
-    margin: 40,
-    alignItems: undefined,
-    justifyContent: undefined,
-  },
-  titleStyle: {
-    padding: 15,
-  },
-  titleTextStyle : {
-    color: 'white',
-    backgroundColor : 'transparent',
-    fontFamily: 'System',
-    fontSize: 20,
-    fontWeight: '600',
-    letterSpacing: 0.361328,
-    lineHeight:28,
-  },
-  labelContainerStyle: {
-    borderBottomColor: '#ececec',
-    borderBottomWidth: 1,
-  },
-  labelTextStyle: {
-    padding: 16,
-  }
-});
+
 
 export default ModalSelector;
